@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { AlertCircle } from "tabler-icons-react"
 import { Alert, Grid, Group } from "@mantine/core"
-import PokeCard from "./PokeCard"
 import { capitalize } from "../utils/index"
+import PokeCard from "./PokeCard"
 
 interface PokeGridProps {
   data: {
