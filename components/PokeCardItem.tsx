@@ -20,7 +20,6 @@ interface PokeType {
 }
 
 interface PokeCardItemProps {
-  name: string
   data: {
     id: number
     name: string
