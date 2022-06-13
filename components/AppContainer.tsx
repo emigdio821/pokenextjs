@@ -1,6 +1,7 @@
 import { Text, Group, Footer, Header, AppShell } from "@mantine/core"
 import { Book2 } from "tabler-icons-react"
 import Head from "next/head"
+import Link from "next/link"
 import ThemeSwitcher from "./ThemeSwitcher"
 
 interface AppContainerProps {
@@ -30,18 +31,21 @@ export default function AppContainer({ children }: AppContainerProps) {
               }}
             >
               <Group position="apart" spacing="sm">
-                <Text
-                  weight={600}
-                  style={{
-                    display: "flex",
-                    userSelect: "none",
-                    alignItems: "center",
-                    alignContent: "center",
-                  }}
-                >
-                  <Book2 size={20} />
-                  PokeNext.js
-                </Text>
+                <Link href="/" passHref>
+                  <Text
+                    weight={600}
+                    style={{
+                      display: "flex",
+                      cursor: "pointer",
+                      userSelect: "none",
+                      alignItems: "center",
+                      alignContent: "center",
+                    }}
+                  >
+                    <Book2 size={20} />
+                    PokeNext.js
+                  </Text>
+                </Link>
               </Group>
               <ThemeSwitcher />
             </div>
