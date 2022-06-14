@@ -3,30 +3,27 @@ import { AlertCircle } from "tabler-icons-react"
 import { Alert, Grid, Group } from "@mantine/core"
 import { capitalize } from "../utils/index"
 import PokeCard from "./PokeCard"
+import { PokeName, PokeFullData } from "../types"
+import DetailsModal from "./DetailsModal"
 
 interface PokeGridProps {
-  data: {
-    results: [
-      {
-        name: string
-      },
-    ]
-  }
+  data: PokeFullData
   search: string
   pokeType: string
 }
 
-interface Results {
-  name: string
-}
-
 export default function PokeGrid({ data, search, pokeType }: PokeGridProps) {
   const typeArr = [] as string[]
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [typeFound, setTypeFound] = useState<boolean>(false)
   const filteredData = data.results.filter(({ name }) => name.includes(search))
 
   const pushTypesArray = (pokeTypes: string) => {
     typeArr.push(pokeTypes)
+  }
+
+  const modalCallback = () => {
+    setIsOpen(!isOpen)
   }
 
   useEffect(() => {
@@ -39,14 +36,16 @@ export default function PokeGrid({ data, search, pokeType }: PokeGridProps) {
 
   return (
     <>
+      <DetailsModal isOpen={isOpen} modalCallback={modalCallback} />
       {filteredData.length ? (
         <Grid py={10}>
-          {filteredData.map(({ name }: Results) => (
+          {filteredData.map(({ name }: PokeName) => (
             <PokeCard
               key={name}
               name={name}
-              pokeType={pokeType}
+              pType={pokeType}
               callback={pushTypesArray}
+              modalCallback={modalCallback}
             />
           ))}
         </Grid>

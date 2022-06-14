@@ -2,20 +2,21 @@ import usePokeAPI from "../hooks/usePokeAPI"
 import Oops from "./Oops"
 import CardLoading from "./CardLoading"
 import PokeCardItem from "./PokeCardItem"
+import { PokeType } from "../types"
 
 interface PokeCardProps {
   name: string
-  pokeType: string
+  pType: string
+  modalCallback: () => void
   callback: (typeFound: string) => void
 }
 
-interface PokeType {
-  type: {
-    name: string
-  }
-}
-
-export default function PokeCard({ name, pokeType, callback }: PokeCardProps) {
+export default function PokeCard({
+  name,
+  pType,
+  callback,
+  modalCallback,
+}: PokeCardProps) {
   const { result, error } = usePokeAPI({ name })
 
   if (error) return <Oops />
@@ -28,16 +29,18 @@ export default function PokeCard({ name, pokeType, callback }: PokeCardProps) {
       ) : (
         // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
-          {pokeType ? (
+          {pType ? (
             result.types.map((type: PokeType) => {
-              if (type.type.name === pokeType) {
-                callback(pokeType)
-                return <PokeCardItem data={result} />
+              if (type.type.name === pType) {
+                callback(pType)
+                return (
+                  <PokeCardItem data={result} modalCallback={modalCallback} />
+                )
               }
               return null
             })
           ) : (
-            <PokeCardItem data={result} />
+            <PokeCardItem data={result} modalCallback={modalCallback} />
           )}
         </>
       )}

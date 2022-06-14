@@ -7,7 +7,7 @@ export default function CardLoading() {
         <Skeleton
           circle
           mb="xl"
-          height={130}
+          height={150}
           style={{
             margin: "0 auto 20px auto",
           }}

@@ -45,7 +45,7 @@ export default function IndexPage() {
             <ActionIcon
               mr="-10px"
               color="violet"
-              variant="filled"
+              variant="light"
               disabled={activePageNumber === 1 || !result}
               onClick={() => setPage((activePageNumber - 1).toString())}
             >
@@ -53,7 +53,7 @@ export default function IndexPage() {
             </ActionIcon>
             <ActionIcon
               color="violet"
-              variant="filled"
+              variant="light"
               disabled={activePageNumber === totalPages || !result}
               onClick={() => setPage((activePageNumber + 1).toString())}
             >
