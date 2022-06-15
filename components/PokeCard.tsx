@@ -7,7 +7,7 @@ import { PokeType } from "../types"
 interface PokeCardProps {
   name: string
   pType: string
-  modalCallback: () => void
+  modalCallback: (pokeName: string) => void
   callback: (typeFound: string) => void
 }
 
@@ -34,7 +34,11 @@ export default function PokeCard({
               if (type.type.name === pType) {
                 callback(pType)
                 return (
-                  <PokeCardItem data={result} modalCallback={modalCallback} />
+                  <PokeCardItem
+                    key={`${name}-${type.type.name}`}
+                    data={result}
+                    modalCallback={modalCallback}
+                  />
                 )
               }
               return null

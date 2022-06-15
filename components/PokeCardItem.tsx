@@ -18,7 +18,7 @@ import { PokeData, PokeType } from "../types"
 
 interface PokeCardItemsProps {
   data: PokeData
-  modalCallback: () => void
+  modalCallback: (pokeName: string) => void
 }
 
 const useStyles = createStyles((theme) => ({
@@ -155,14 +155,16 @@ export default function PokeCardItem({
           })}
         >
           {!data.sprites.front_default && (
-            <Skeleton
-              circle
-              height={150}
-              animate={false}
-              style={{
-                margin: "0 auto",
-              }}
-            />
+            <Group position="center" pb={20}>
+              <Skeleton
+                circle
+                height={150}
+                animate={false}
+                style={{
+                  margin: "0 auto",
+                }}
+              />
+            </Group>
           )}
           {data.sprites.front_default && (
             <Group position="center" pb={20}>
@@ -191,7 +193,9 @@ export default function PokeCardItem({
             </Group>
           )}
           <Group position="center">
-            <Badge size="sm" color="gray" variant="dot">{`${data.id}`}</Badge>
+            <Badge size="sm" color="gray" variant="dot">
+              {data.order < 1 ? "?" : data.order}
+            </Badge>
           </Group>
           <Card.Section className={classes.section}>
             <Group position="center">
@@ -230,7 +234,7 @@ export default function PokeCardItem({
                 color="violet"
                 variant="light"
                 style={{ flex: 1 }}
-                onClick={modalCallback}
+                onClick={() => modalCallback(data.name)}
                 leftIcon={<ListDetails size={16} />}
               >
                 Details

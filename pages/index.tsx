@@ -1,6 +1,11 @@
-import { Group, Select, Text, Grid, ActionIcon } from "@mantine/core"
+import { Group, Select, Grid, ActionIcon } from "@mantine/core"
 import { useState } from "react"
-import { ArrowLeft, ArrowRight } from "tabler-icons-react"
+import {
+  ChevronsLeft,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsRight,
+} from "tabler-icons-react"
 import Oops from "../components/Oops"
 import usePokeAPI from "../hooks/usePokeAPI"
 import PokeGrid from "../components/PokeGrid"
@@ -27,11 +32,30 @@ export default function IndexPage() {
           searchCallback={(value: string) => setSearch(value)}
           selectCallback={(value: string) => setPokeType(value)}
         />
-        <Group>
-          <Text size="sm">Page</Text>
+        <Group spacing="xs">
+          <ActionIcon
+            size="lg"
+            color="violet"
+            variant="light"
+            onClick={() => setPage("1")}
+            disabled={activePageNumber === 1 || !result}
+          >
+            <ChevronsLeft size={16} />
+          </ActionIcon>
+          <ActionIcon
+            size="lg"
+            color="violet"
+            variant="light"
+            disabled={activePageNumber === 1 || !result}
+            onClick={() => setPage((activePageNumber - 1).toString())}
+          >
+            <ChevronLeft size={16} />
+          </ActionIcon>
           <Select
             radius="lg"
+            searchable
             disabled={!result}
+            nothingFound="Not found"
             style={{ width: "70px" }}
             value={activePage.toString()}
             onChange={(value: string) => setPage(value)}
@@ -40,26 +64,24 @@ export default function IndexPage() {
               label: (i + 1).toString(),
             }))}
           />
-          <>
-            <Text size="sm">of {!result ? "..." : totalPages}</Text>
-            <ActionIcon
-              mr="-10px"
-              color="violet"
-              variant="light"
-              disabled={activePageNumber === 1 || !result}
-              onClick={() => setPage((activePageNumber - 1).toString())}
-            >
-              <ArrowLeft size={16} />
-            </ActionIcon>
-            <ActionIcon
-              color="violet"
-              variant="light"
-              disabled={activePageNumber === totalPages || !result}
-              onClick={() => setPage((activePageNumber + 1).toString())}
-            >
-              <ArrowRight size={16} />
-            </ActionIcon>
-          </>
+          <ActionIcon
+            size="lg"
+            color="violet"
+            variant="light"
+            disabled={activePageNumber === totalPages || !result}
+            onClick={() => setPage((activePageNumber + 1).toString())}
+          >
+            <ChevronRight size={16} />
+          </ActionIcon>
+          <ActionIcon
+            size="lg"
+            color="violet"
+            variant="light"
+            disabled={activePageNumber === totalPages || !result}
+            onClick={() => setPage(totalPages.toString())}
+          >
+            <ChevronsRight size={16} />
+          </ActionIcon>
         </Group>
       </Group>
       {!result ? (

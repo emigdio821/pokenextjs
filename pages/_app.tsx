@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { AppProps } from "next/app"
+
+import { ModalsProvider } from "@mantine/modals"
 import {
   MantineProvider,
   ColorSchemeProvider,
@@ -30,9 +32,11 @@ export default function App({ Component, pageProps }: AppProps) {
         withNormalizeCSS
         theme={{ colorScheme }}
       >
-        <AppContainer>
-          <Component {...pageProps} />
-        </AppContainer>
+        <ModalsProvider>
+          <AppContainer>
+            <Component {...pageProps} />
+          </AppContainer>
+        </ModalsProvider>
       </MantineProvider>
     </ColorSchemeProvider>
   )

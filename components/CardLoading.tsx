@@ -1,17 +1,12 @@
-import { Card, Grid, Skeleton } from "@mantine/core"
+import { Card, Grid, Group, Skeleton } from "@mantine/core"
 
 export default function CardLoading() {
   return (
     <Grid.Col xs={6} sm={4} lg={3} xl={2}>
       <Card shadow="sm" p="lg" radius="lg" withBorder>
-        <Skeleton
-          circle
-          mb="xl"
-          height={150}
-          style={{
-            margin: "0 auto 20px auto",
-          }}
-        />
+        <Group>
+          <Skeleton mb="xl" height={150} />
+        </Group>
         <Skeleton height={10} mt={6} radius="xl" />
         <Skeleton height={10} mt={6} radius="xl" />
         <Skeleton height={10} mt={6} radius="xl" />
