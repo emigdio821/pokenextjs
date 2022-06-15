@@ -35,18 +35,19 @@ export default function PokeDetails({ data }: PokeDetailsProps) {
         )}
       </Group>
       <div className={classes.div}>
-        <Text weight={500} size="lg">
-          <b>Height:</b> {height / 10}m
+        <Text weight={400} size="md">
+          <span style={{ fontWeight: 600 }}>Height:</span> {height / 10}m
         </Text>
-        <Text weight={500} size="lg">
-          <b>Weight:</b> {(weight / 10).toLocaleString("en")}kg
+        <Text weight={400} size="md">
+          <span style={{ fontWeight: 600 }}>Weight:</span>{" "}
+          {(weight / 10).toLocaleString("en")}kg
         </Text>
-        <Text weight={500} size="lg">
-          <b>Types:</b>{" "}
+        <Text weight={400} size="md">
+          <span style={{ fontWeight: 600 }}>Types:</span>{" "}
           {types.map((type) => capitalize(type.type.name)).join(", ")}
         </Text>
-        <Text weight={500} size="lg">
-          <b>Abilities:</b>{" "}
+        <Text weight={400} size="md">
+          <span style={{ fontWeight: 600 }}>Abilities:</span>{" "}
           {abilities
             .map((ab) => {
               const abName = ab.ability.name
