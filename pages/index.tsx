@@ -12,10 +12,17 @@ import PokeGrid from "../components/PokeGrid"
 import Filters from "../components/Filters"
 import CardLoading from "../components/CardLoading"
 
+interface FilterBy {
+  name?: string
+  type?: string
+}
+
 export default function IndexPage() {
   const [activePage, setPage] = useState<string>("1")
-  const [search, setSearch] = useState<string>("")
-  const [pokeType, setPokeType] = useState<string>("")
+  const [filterBy, setFilterBy] = useState<FilterBy>({
+    name: "",
+    type: "",
+  })
   const activePageNumber = parseInt(activePage, 10)
   const { result, error } = usePokeAPI({
     offset: (activePageNumber - 1) * 12,
@@ -29,8 +36,12 @@ export default function IndexPage() {
       <Group position="left" mb={10}>
         <Filters
           isDisabled={!result}
-          searchCallback={(value: string) => setSearch(value)}
-          selectCallback={(value: string) => setPokeType(value)}
+          searchCallback={(value: string) =>
+            setFilterBy((prev) => ({ ...prev, name: value }))
+          }
+          selectCallback={(value: string) =>
+            setFilterBy((prev) => ({ ...prev, type: value }))
+          }
         />
         <Group spacing="xs">
           <ActionIcon
@@ -91,7 +102,7 @@ export default function IndexPage() {
           ))}
         </Grid>
       ) : (
-        <PokeGrid data={result} search={search} pokeType={pokeType} />
+        <PokeGrid data={result} filterBy={filterBy} />
       )}
     </>
   )

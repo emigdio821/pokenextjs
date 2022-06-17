@@ -2,7 +2,7 @@ import { Card, Grid, Group, Skeleton } from "@mantine/core"
 
 export default function CardLoading() {
   return (
-    <Grid.Col xs={6} sm={4} lg={3} xl={2}>
+    <Grid.Col xs={6} sm={4} lg={4} xl={4}>
       <Card shadow="sm" p="lg" radius="lg" withBorder>
         <Group>
           <Skeleton mb="xl" height={150} />

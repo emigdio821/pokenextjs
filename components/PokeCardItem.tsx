@@ -39,7 +39,7 @@ export default function PokeCardItem({
   }
 
   return (
-    <Grid.Col xs={6} sm={4} lg={3} xl={2}>
+    <Grid.Col xs={6} sm={4} lg={4} xl={4}>
       <motion.div
         layout
         initial={{ y: 20, opacity: 0.2 }}

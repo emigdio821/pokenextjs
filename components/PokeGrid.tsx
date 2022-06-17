@@ -9,14 +9,19 @@ import DetailsModal from "./DetailsModal"
 
 interface PokeGridProps {
   data: PokeFullData
-  search: string
-  pokeType: string
+  filterBy: {
+    name?: string
+    type?: string
+  }
 }
 
-export default function PokeGrid({ data, search, pokeType }: PokeGridProps) {
+export default function PokeGrid({ data, filterBy }: PokeGridProps) {
   const typeArr = [] as string[]
   const [typeFound, setTypeFound] = useState<boolean>(false)
-  const filteredData = data.results.filter(({ name }) => name.includes(search))
+  const { type: filterType, name: filterName } = filterBy
+  const filteredData = data.results.filter(({ name }) =>
+    name.includes(filterName || ""),
+  )
   const modals = useModals()
 
   const pushTypesArray = (pokeTypes: string) => {
@@ -40,7 +45,7 @@ export default function PokeGrid({ data, search, pokeType }: PokeGridProps) {
     } else {
       setTypeFound(false)
     }
-  }, [pokeType, typeArr.length, search])
+  }, [filterType, typeArr.length])
 
   return (
     <>
@@ -50,7 +55,7 @@ export default function PokeGrid({ data, search, pokeType }: PokeGridProps) {
             <PokeCard
               key={name}
               name={name}
-              pType={pokeType}
+              filterBy={filterBy}
               callback={pushTypesArray}
               modalCallback={modalCallback}
             />
@@ -59,14 +64,14 @@ export default function PokeGrid({ data, search, pokeType }: PokeGridProps) {
       ) : (
         <Group mb={10}>
           <Alert icon={<AlertCircle size={16} />} color="violet" radius="md">
-            Pokemon not found with name: <b>{search}</b>
+            Pokemon not found with name: <b>{filterName}</b>
           </Alert>
         </Group>
       )}
-      {typeFound && pokeType && (
+      {typeFound && filterType && (
         <Group>
           <Alert icon={<AlertCircle size={16} />} color="violet" radius="md">
-            Pokemon not found with type: <b>{capitalize(pokeType)}</b>
+            Pokemon not found with type: <b>{capitalize(filterType)}</b>
           </Alert>
         </Group>
       )}

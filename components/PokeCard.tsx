@@ -6,17 +6,21 @@ import { PokeType } from "../types"
 
 interface PokeCardProps {
   name: string
-  pType: string
+  filterBy: {
+    name?: string
+    type?: string
+  }
   modalCallback: (pokeName: string) => void
   callback: (typeFound: string) => void
 }
 
 export default function PokeCard({
   name,
-  pType,
+  filterBy,
   callback,
   modalCallback,
 }: PokeCardProps) {
+  const { type: filterType } = filterBy
   const { result, error } = usePokeAPI({ name })
 
   if (error) return <Oops />
@@ -29,10 +33,10 @@ export default function PokeCard({
       ) : (
         // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
-          {pType ? (
+          {filterType ? (
             result.types.map((type: PokeType) => {
-              if (type.type.name === pType) {
-                callback(pType)
+              if (type.type.name === filterType) {
+                callback(filterType)
                 return (
                   <PokeCardItem
                     key={`${name}-${type.type.name}`}

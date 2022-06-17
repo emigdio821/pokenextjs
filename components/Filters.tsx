@@ -1,5 +1,5 @@
-import { Input, Select } from "@mantine/core"
-import { Filter, Search } from "tabler-icons-react"
+import { Group, Select, Input } from "@mantine/core"
+import { Filter } from "tabler-icons-react"
 import POKEMON_TYPES from "../constants"
 
 interface FilterProps {
@@ -14,24 +14,24 @@ export default function Filters({
   selectCallback,
 }: FilterProps) {
   return (
-    <>
+    <Group position="left" spacing="sm">
       <Input
-        radius="lg"
         style={{
           width: 150,
         }}
+        radius="lg"
         disabled={isDisabled}
-        icon={<Search size={14} />}
+        icon={<Filter size={14} />}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           searchCallback(e.target.value)
         }
-        placeholder="Search"
+        placeholder="By name..."
       />
       <Select
         clearable
         radius="lg"
         data={POKEMON_TYPES}
-        placeholder="By type"
+        placeholder="By type..."
         disabled={isDisabled}
         maxDropdownHeight={400}
         icon={<Filter size={14} />}
@@ -40,6 +40,6 @@ export default function Filters({
           width: 150,
         }}
       />
-    </>
+    </Group>
   )
 }

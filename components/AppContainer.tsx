@@ -1,8 +1,6 @@
-import { Text, Group, Footer, Header, AppShell } from "@mantine/core"
-import { Book2 } from "tabler-icons-react"
 import Head from "next/head"
-import Link from "next/link"
-import ThemeSwitcher from "./ThemeSwitcher"
+import { Text, Group, Footer, Container } from "@mantine/core"
+import Navbar from "./Navbar"
 
 interface AppContainerProps {
   children: React.ReactNode
@@ -18,49 +16,15 @@ export default function AppContainer({ children }: AppContainerProps) {
           content="initial-scale=1.0, width=device-width,  maximum-scale=1.0"
         />
       </Head>
-      <AppShell
-        fixed
-        header={
-          <Header height={60} p="md">
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                height: "100%",
-              }}
-            >
-              <Group position="apart" spacing="sm">
-                <Link href="/" passHref>
-                  <Text
-                    weight={600}
-                    style={{
-                      display: "flex",
-                      cursor: "pointer",
-                      userSelect: "none",
-                      alignItems: "center",
-                      alignContent: "center",
-                    }}
-                  >
-                    <Book2 size={20} />
-                    PokeNext.js
-                  </Text>
-                </Link>
-              </Group>
-              <ThemeSwitcher />
-            </div>
-          </Header>
-        }
-        footer={
-          <Footer height={60} p="md">
-            <Group position="center" spacing="xl">
-              <Text size="sm">Pokedex using Mantine, Nextjs and ♥</Text>
-            </Group>
-          </Footer>
-        }
-      >
+      <Navbar />
+      <Container mt={80} style={{ minHeight: "calc(100vh - 160px)" }}>
         {children}
-      </AppShell>
+      </Container>
+      <Footer height={60} p="md" mt={20}>
+        <Group position="center" spacing="xl">
+          <Text size="sm">Pokedex using Mantine, Nextjs and ♥</Text>
+        </Group>
+      </Footer>
     </>
   )
 }
